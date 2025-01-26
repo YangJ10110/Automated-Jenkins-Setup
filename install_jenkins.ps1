@@ -13,22 +13,13 @@ Write-Host "Once installed, continue with this script."
 # Pause to allow the user to download and install JDK 17 manually
 Read-Host -Prompt "Press Enter after you've installed JDK 17"
 
-# Step 2: Set the JAVA_HOME environment variable to the installed JDK 17 location
-$javaHome = "C:\Program Files\Java\jdk-17"
-Write-Host "Setting JAVA_HOME to: $javaHome"
-[System.Environment]::SetEnvironmentVariable('JAVA_HOME', $javaHome, 'Machine')
-
-# Update PATH environment variable to include Java binaries
-$env:Path += ";$javaHome\bin"
-[System.Environment]::SetEnvironmentVariable('Path', $env:Path, 'Machine')
-
-# Step 3: Download Jenkins WAR file
+# Step 2: Download Jenkins WAR file
 Write-Host "Downloading Jenkins WAR file..."
 $jenkinsUrl = "https://get.jenkins.io/war-stable/2.375.3/jenkins.war"
 $jenkinsPath = "$env:TEMP\jenkins.war"
 Invoke-WebRequest -Uri $jenkinsUrl -OutFile $jenkinsPath
 
-# Step 4: Start Jenkins with port checking
+# Step 3: Start Jenkins with port checking
 $port = 8080
 $maxPort = 8099  # You can increase this range if needed
 $jenkinsStarted = $false
@@ -52,7 +43,7 @@ if (-not $jenkinsStarted) {
     exit 1
 }
 
-# Step 5: Instructions to access Jenkins
+# Step 4: Instructions to access Jenkins
 Write-Host "Jenkins is starting up. Open your browser and go to http://localhost:$port to complete the setup."
 
 # Final message
